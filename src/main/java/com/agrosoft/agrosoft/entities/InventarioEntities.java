@@ -1,7 +1,5 @@
 package com.agrosoft.agrosoft.entities;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,10 +33,10 @@ public class InventarioEntities {
     private Long fkProveedor;
 
     @Column(name = "fecha_inicial_ven")
-    private Timestamp fechaInicialVen;
+    private String fechaInicialVen;
 
     @Column(name = "fecha_final_ven")
-    private Timestamp fechaFinalVen;
+    private String fechaFinalVen;
 
     @Column(name = "costo_proveedor")
     private Long costoProveedor;
@@ -59,8 +57,8 @@ public class InventarioEntities {
     private String codigoQR;
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private String updatedAt;
 }

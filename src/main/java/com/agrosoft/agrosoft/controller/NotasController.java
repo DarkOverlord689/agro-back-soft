@@ -3,6 +3,7 @@ package com.agrosoft.agrosoft.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.agrosoft.agrosoft.model.NotasDTO;
 import com.agrosoft.agrosoft.service.NotasService;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "api/v1/notas")
 public class NotasController {
 
@@ -23,8 +25,8 @@ public class NotasController {
     NotasService notasService;
 
     @GetMapping("/list")
-    List<NotasDTO> listNotas() {
-        return notasService.listNotas();
+    List<NotasDTO> listNotas(@RequestParam long user) {
+        return notasService.listNotas(user);
     }
 
     @PostMapping("/created-notas")

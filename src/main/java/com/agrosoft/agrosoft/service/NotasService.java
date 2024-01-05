@@ -5,7 +5,7 @@ import java.util.List;
 import com.agrosoft.agrosoft.model.NotasDTO;
 
 public interface NotasService {
-    List<NotasDTO> listNotas();
+    List<NotasDTO> listNotas(Long user);
 
     void createdNotas(NotasDTO notas);
 

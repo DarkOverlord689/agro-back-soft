@@ -66,13 +66,26 @@ public class InventarioServicioImpl implements InventarioServicio {
 
     @Override
     public void createdInventario(InventarioDTO inventario) {
-        InventarioEntities inventarios = new InventarioEntities(null, inventario.getCodigo(),
+        InventarioEntities inventarios = new InventarioEntities(null, inventario.getNombre().substring(0, 3).toUpperCase(),
                 inventario.getNombre(), inventario.getFkCategoria(), inventario.getFkProveedor(),
                 inventario.getFechaInicialVen(), inventario.getFechaFinalVen(), inventario.getCostoProveedor(),
                 inventario.getCantidadProveedor(), inventario.getValorVenta(),
                 inventario.getDescripcion(), inventario.getEstado(), inventario.getFoto(), inventario.getCodigoQR(),
                 null, null);
 
+        // Suponiendo que el ID ya ha sido generado automáticamente por la base de datos
+        inventarioRepository.save(inventarios);
+
+        // Obtener el ID asignado por la base de datos
+        Long idAsignado = inventarios.getId();
+
+        // Concatenar el ID al código del proveedor
+        String codigoConId = inventarios.getCodigo() + "_" + idAsignado;
+
+        // Actualizar el código del proveedor con el ID concatenado
+        inventarios.setCodigo(codigoConId);
+
+        // Guardar la entidad actualizada con el código concatenado
         inventarioRepository.save(inventarios);
     }
 

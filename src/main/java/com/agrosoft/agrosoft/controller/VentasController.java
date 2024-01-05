@@ -3,6 +3,8 @@ package com.agrosoft.agrosoft.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import com.agrosoft.agrosoft.service.VentasDetalleServicio;
 import com.agrosoft.agrosoft.service.VentasServicio;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "api/v1/ventas")
 public class VentasController {
 
@@ -22,6 +25,11 @@ public class VentasController {
 
     @Autowired
     VentasDetalleServicio ventasDetalleServicio;
+
+    @GetMapping("list")
+    List<VentasDTO> getVentas() {
+        return ventasServicio.listVentas();
+    }
 
     @PostMapping("created-venta")
     void postVenta(@RequestBody VentasDTO ventasDTO) {

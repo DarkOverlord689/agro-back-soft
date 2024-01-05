@@ -1,5 +1,7 @@
 package com.agrosoft.agrosoft.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,6 +14,10 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface NotasRepository extends CrudRepository<NotasEntities, Long> {
+
+
+    @Query(value = "select * from notas n where fk_user = :fk_user", nativeQuery = true)
+    List<NotasEntities> listNotasByUser(@Param("fk_user") Long user);
 
     @Transactional
     @Modifying

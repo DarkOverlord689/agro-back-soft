@@ -1,7 +1,5 @@
 package com.agrosoft.agrosoft.model;
 
-import java.sql.Timestamp;
-
 import lombok.Value;
 
 @Value
@@ -11,8 +9,8 @@ public class InventarioDTO {
     private String nombre;
     private Long fkCategoria;
     private Long fkProveedor;
-    private Timestamp fechaInicialVen;
-    private Timestamp fechaFinalVen;
+    private String fechaInicialVen;
+    private String fechaFinalVen;
     private Long costoProveedor;
     private Long cantidadProveedor;
     private Long valorVenta;
@@ -20,6 +18,6 @@ public class InventarioDTO {
     private Long estado;
     private String foto;
     private String codigoQR;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String createdAt;
+    private String updatedAt;
 }

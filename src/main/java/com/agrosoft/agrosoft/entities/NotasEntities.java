@@ -25,6 +25,8 @@ public class NotasEntities {
     private Long orden;
     private String descripcion;
     private Long estado;
+    @Column(name = "fk_user")
+    private Long fkUser;
     @Column(name = "created_at")
     private String createdAt;
     @Column(name = "updated_at")

@@ -1,6 +1,8 @@
 package com.agrosoft.agrosoft.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,13 @@ public class NotasImplServicio implements NotasService {
     NotasRepository notasRepository;
 
     @Override
-    public List<NotasDTO> listNotas() {
+    public List<NotasDTO> listNotas(Long user) {
         List<NotasDTO> notas = new ArrayList<>();
 
-        notasRepository.findAll().forEach((NotasEntities notasEntities) -> {
+        notasRepository.listNotasByUser(user).forEach((NotasEntities notasEntities) -> {
             notas.add(new NotasDTO(notasEntities.getId(), notasEntities.getCodigo(), notasEntities.getOrden(),
-                    notasEntities.getDescripcion(), notasEntities.getEstado(), notasEntities.getCreatedAt(),
+                    notasEntities.getDescripcion(), notasEntities.getEstado(), notasEntities.getFkUser(),
+                    notasEntities.getCreatedAt(),
                     notasEntities.getUpdatedAt()));
         });
 
@@ -32,10 +35,33 @@ public class NotasImplServicio implements NotasService {
 
     @Override
     public void createdNotas(NotasDTO notas) {
+        // Establecer una fecha por defecto
+        Date fechaPorDefecto = new Date(); // Esto inicializa la fecha con el tiempo actual
 
-        notasRepository.save(new NotasEntities(null, notas.getCodigo(), notas.getOrden(),
-                notas.getDescripcion(), notas.getEstado(), notas.getCreatedAt(),
-                notas.getUpdatedAt()));
+        // Convertir la fecha a una cadena de texto (string)
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaComoString = formatoFecha.format(fechaPorDefecto);
+        notas.setCreatedAt(fechaComoString);
+        notas.setUpdatedAt(fechaComoString);
+
+        NotasEntities notasEntities = new NotasEntities(null, notas.getDescripcion().substring(0,3).toUpperCase(), notas.getOrden(),
+        notas.getDescripcion(), notas.getEstado(), notas.getFkUser(), notas.getCreatedAt(),
+        notas.getUpdatedAt());
+
+        notasRepository.save(notasEntities);
+
+        // Obtener el ID asignado por la base de datos
+        Long idAsignado = notasEntities.getId();
+
+        // Concatenar el ID al código del proveedor
+        String codigoConId = notasEntities.getCodigo() + "_" + idAsignado;
+
+        // Actualizar el código del proveedor con el ID concatenado
+        notasEntities.setCodigo(codigoConId);
+        notasEntities.setOrden(idAsignado);
+
+        // Guardar la entidad actualizada con el código concatenado
+        notasRepository.save(notasEntities);
     }
 
     @Override

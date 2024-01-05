@@ -20,6 +20,12 @@ public class VentasImpl implements VentasServicio {
     @Override
     public List<VentasDTO> listVentas() {
         List<VentasDTO> ventas = new ArrayList<>();
+
+        ventasRepository.findAll().forEach((VentasEntities ventasEntities) -> {
+            VentasDTO venta = new VentasDTO(ventasEntities.getId(), ventasEntities.getFechaVenta(), ventasEntities.getFkTipoVenta(), ventasEntities.getFkVendedor(), ventasEntities.getMonto(), null, ventasEntities.getIngreso(), ventasEntities.getEgreso(), ventasEntities.getCreatedAt(), ventasEntities.getUpdatedAt());
+
+            ventas.add(venta);
+        });
         return ventas;
     }
 
