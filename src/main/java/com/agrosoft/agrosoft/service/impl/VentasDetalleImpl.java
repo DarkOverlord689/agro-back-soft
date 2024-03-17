@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.agrosoft.agrosoft.entities.VentasDetalleEntities;
 import com.agrosoft.agrosoft.model.VentasDetalleDTO;
+import com.agrosoft.agrosoft.repository.InventarioRepository;
 import com.agrosoft.agrosoft.repository.VentasDetalleRepository;
 import com.agrosoft.agrosoft.service.VentasDetalleServicio;
 
@@ -16,6 +17,9 @@ public class VentasDetalleImpl implements VentasDetalleServicio {
 
     @Autowired
     VentasDetalleRepository ventasDetalleRepository;
+
+    @Autowired
+    InventarioRepository inventarioRepository;
 
     @Override
     public List<VentasDetalleDTO> listVentaDetalles() {
@@ -30,6 +34,7 @@ public class VentasDetalleImpl implements VentasDetalleServicio {
     @Override
     public void createdVentaDetalle(List<VentasDetalleDTO> ventasDetalleEntities) {
         ventasDetalleEntities.forEach((VentasDetalleDTO ventasDetalle) -> {
+            inventarioRepository.updateCantidadInventario(ventasDetalle.getCantidad(), ventasDetalle.getFkProducto());
             ventasDetalleRepository.save(new VentasDetalleEntities(ventasDetalle.getId(), ventasDetalle.getCodigo(),
                     ventasDetalle.getFkProducto(), ventasDetalle.getFkVenta(), ventasDetalle.getCantidad(),
                     ventasDetalle.getCreatedAt(), ventasDetalle.getUpdatedAt()));

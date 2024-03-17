@@ -16,7 +16,7 @@ import com.agrosoft.agrosoft.service.VentasDetalleServicio;
 import com.agrosoft.agrosoft.service.VentasServicio;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(originPatterns = "*")
 @RequestMapping(value = "api/v1/ventas")
 public class VentasController {
 
@@ -32,8 +32,8 @@ public class VentasController {
     }
 
     @PostMapping("created-venta")
-    void postVenta(@RequestBody VentasDTO ventasDTO) {
-        ventasServicio.createdVenta(ventasDTO);
+    Long postVenta(@RequestBody VentasDTO ventasDTO) {
+       return ventasServicio.createdVenta(ventasDTO);
     }
 
     @PostMapping("created-venta-detalle")

@@ -29,7 +29,7 @@ public class TiposEntities {
 
     private String nombre;
 
-    private Long estado;
+    private Boolean estado;
 
     @Column(name = "fk_tipo_maestros")
     private Long fkTipoMaestros;

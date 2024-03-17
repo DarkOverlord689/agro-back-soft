@@ -12,7 +12,7 @@ import com.agrosoft.agrosoft.service.FechasEspecialesServicio;
 import com.agrosoft.agrosoft.model.FechasEspecialesDTO;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(originPatterns = "*")
 @RequestMapping(value = "/api/v1/fechas-especiales")
 public class FechasEspecialesController {
 

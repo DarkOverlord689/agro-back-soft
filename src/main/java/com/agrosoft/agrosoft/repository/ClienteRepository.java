@@ -6,13 +6,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.agrosoft.agrosoft.entities.UsuariosEntities;
+import com.agrosoft.agrosoft.entities.ClienteEntities;
 
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<UsuariosEntities, Long> {
+public interface ClienteRepository extends CrudRepository<ClienteEntities, Long> {
 
     @Transactional
     @Modifying

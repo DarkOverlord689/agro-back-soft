@@ -7,5 +7,5 @@ import com.agrosoft.agrosoft.model.VentasDTO;
 public interface VentasServicio {
 
     List<VentasDTO> listVentas();
-    void createdVenta(VentasDTO ventasEntities);
+    Long createdVenta(VentasDTO ventasEntities);
 }

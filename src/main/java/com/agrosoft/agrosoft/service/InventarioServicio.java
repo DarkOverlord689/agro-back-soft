@@ -5,9 +5,14 @@ import java.util.List;
 import com.agrosoft.agrosoft.entities.InventarioEntities;
 import com.agrosoft.agrosoft.model.InventarioDTO;
 import com.agrosoft.agrosoft.model.InventarioUpdateDTO;
+import com.agrosoft.agrosoft.model.VentasDetalleDTO;
 
 public interface InventarioServicio {
     List<InventarioDTO> listInventario();
+
+    List<InventarioDTO> listInventarioDisponible();
+
+    List<VentasDetalleDTO> listVentasByProducto(Long producto);
 
     List<InventarioEntities> listInventarioProveedor(Long proveedorId);
 

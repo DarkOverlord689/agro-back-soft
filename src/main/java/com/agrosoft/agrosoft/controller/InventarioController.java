@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.agrosoft.agrosoft.model.InventarioDTO;
 import com.agrosoft.agrosoft.model.InventarioUpdateDTO;
+import com.agrosoft.agrosoft.model.VentasDetalleDTO;
 import com.agrosoft.agrosoft.service.InventarioServicio;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(originPatterns = "*")
 @RequestMapping(value = "/api/v1/inventario")
 public class InventarioController {
     @Autowired
@@ -26,6 +27,16 @@ public class InventarioController {
     @GetMapping("/list")
     List<InventarioDTO> getInventario() {
         return inventarioServicio.listInventario();
+    }
+
+    @GetMapping("/list-disponible")
+    List<InventarioDTO> listInventarioDisponible() {
+        return inventarioServicio.listInventarioDisponible();
+    }
+
+    @GetMapping("/list-detalle-venta")
+    List<VentasDetalleDTO> listVentasByProducto(@RequestParam Long producto) {
+        return inventarioServicio.listVentasByProducto(producto);
     }
 
     @GetMapping("/list-by-proveedor")

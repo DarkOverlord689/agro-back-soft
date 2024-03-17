@@ -17,7 +17,7 @@ import com.agrosoft.agrosoft.model.NotasDTO;
 import com.agrosoft.agrosoft.service.NotasService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(originPatterns = "*")
 @RequestMapping(value = "api/v1/notas")
 public class NotasController {
 

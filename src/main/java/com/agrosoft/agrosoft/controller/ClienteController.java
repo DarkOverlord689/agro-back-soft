@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.agrosoft.agrosoft.model.UsuarioDTO;
-import com.agrosoft.agrosoft.service.UsuarioServicio;
+import com.agrosoft.agrosoft.model.ClienteDTO;
+import com.agrosoft.agrosoft.service.ClienteServicio;
 
-@CrossOrigin
 @RestController
-@RequestMapping(value = "api/v1/usuarios")
-public class UsuarioController {
+@CrossOrigin(originPatterns = "*")
+@RequestMapping(value = "api/v1/cliente")
+public class ClienteController {
 
     @Autowired
-    UsuarioServicio usuarioServicio;
+    ClienteServicio usuarioServicio;
 
     @GetMapping("/list")
-    List<UsuarioDTO> getUsuarios() {
+    List<ClienteDTO> getUsuarios() {
         return usuarioServicio.listUser();
     }
 
     @PostMapping("/created-user")
-    void postUser(@RequestBody UsuarioDTO usuario) {
+    void postUser(@RequestBody ClienteDTO usuario) {
         usuarioServicio.createdUser(usuario);
     }
 

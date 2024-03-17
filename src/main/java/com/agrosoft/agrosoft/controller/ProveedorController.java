@@ -16,7 +16,7 @@ import com.agrosoft.agrosoft.model.ProveedoresDTO;
 import com.agrosoft.agrosoft.service.ProveedoresServicio;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(originPatterns = "*")
 @RequestMapping(value = "api/v1/proveedores")
 public class ProveedorController {
 

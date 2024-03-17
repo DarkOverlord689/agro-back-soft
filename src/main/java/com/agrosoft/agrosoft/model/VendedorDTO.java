@@ -1,13 +1,10 @@
 package com.agrosoft.agrosoft.model;
 
-import java.sql.Timestamp;
-
 import lombok.Value;
 
 @Value
-public class UsuarioDTO {
+public class VendedorDTO {
     private Long id;
-    private String codigo;
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
@@ -17,9 +14,14 @@ public class UsuarioDTO {
     private String correo;
     private String telefono;
     private Long estado;
+    private String username;
+    private String password;
+    private String cambioContrasena;
+    private Long intentosFallidos;
+    private String token;
     private Long tipoGeneroId;
     private String direccion;
-    private Timestamp fechaNacimiento;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String fechaNacimiento;
+    private String createdAt;
+    private String updatedAt;
 }

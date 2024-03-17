@@ -22,7 +22,7 @@ public class VentasImpl implements VentasServicio {
         List<VentasDTO> ventas = new ArrayList<>();
 
         ventasRepository.findAll().forEach((VentasEntities ventasEntities) -> {
-            VentasDTO venta = new VentasDTO(ventasEntities.getId(), ventasEntities.getFechaVenta(), ventasEntities.getFkTipoVenta(), ventasEntities.getFkVendedor(), ventasEntities.getMonto(), null, ventasEntities.getIngreso(), ventasEntities.getEgreso(), ventasEntities.getCreatedAt(), ventasEntities.getUpdatedAt());
+            VentasDTO venta = new VentasDTO(ventasEntities.getId(), ventasEntities.getFechaVenta(), ventasEntities.getFkTipoVenta(), ventasEntities.getFkVendedor(), ventasEntities.getMonto(), ventasEntities.getFacturaUrl(), ventasEntities.getIngreso(), ventasEntities.getEgreso(), ventasEntities.getCreatedAt(), ventasEntities.getUpdatedAt());
 
             ventas.add(venta);
         });
@@ -30,9 +30,10 @@ public class VentasImpl implements VentasServicio {
     }
 
     @Override
-    public void createdVenta(VentasDTO ventas) {
-        ventasRepository.save(new VentasEntities(null, ventas.getFechaVenta(), ventas.getFkTipoVenta(),
+    public Long createdVenta(VentasDTO ventas) {
+        VentasEntities ventaGuardada = ventasRepository.save(new VentasEntities(null, ventas.getFechaVenta(), ventas.getFkTipoVenta(),
                 ventas.getFkVendedor(), ventas.getMonto(), ventas.getFacturaUrl(), ventas.getIngreso(),
                 ventas.getEgreso(), ventas.getCreatedAt(), ventas.getUpdatedAt()));
+        return ventaGuardada.getId(); // Retorna el ID de la venta guardada
     }
 }

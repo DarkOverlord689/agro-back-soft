@@ -45,6 +45,31 @@ public interface InventarioRepository extends CrudRepository<InventarioEntities,
                     """, nativeQuery = true)
     List<InventarioEntities> listInventarioProveedor(@Param("proveedorId") Long proveedorId);
 
+    @Query(value = """
+                select
+                i.id,
+                i.codigo,
+                i.nombre,
+                i.fk_categoria,
+                i.fk_proveedor,
+                i.fecha_inicial_ven,
+                i.fecha_final_ven,
+                i.costo_proveedor,
+                i.cantidad_proveedor,
+                i.valor_venta,
+                i.descripcion,
+                i.foto,
+                i.estado,
+                i.codigo_qr,
+                i.created_at,
+                i.updated_at
+            from
+                inventario i
+                left join proveedores p on p.id = i.fk_proveedor
+                where i.cantidad_proveedor > 0 and i.estado = 1 and p.estado = 1
+                    """, nativeQuery = true)
+    List<InventarioEntities> listInventarioDisponible();
+
     @Transactional
     @Modifying
     @Query(value = """
@@ -63,4 +88,11 @@ public interface InventarioRepository extends CrudRepository<InventarioEntities,
             @Param("cantidadProveedor") Long cantidadProveedor,
             @Param("valor_venta") Long valor_venta,
             @Param("idProveedor") Long idProveedor);
+
+    @Transactional
+    @Modifying
+    @Query(value = """
+            update inventario set cantidad_proveedor = (cantidad_proveedor - :cantidad) where id = :id
+                """, nativeQuery = true)
+    void updateCantidadInventario(@Param("cantidad") Long cantidad, @Param("id") Long id);
 }

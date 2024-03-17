@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agrosoft.agrosoft.entities.InventarioEntities;
+import com.agrosoft.agrosoft.entities.VentasDetalleEntities;
 import com.agrosoft.agrosoft.model.InventarioDTO;
 import com.agrosoft.agrosoft.model.InventarioUpdateDTO;
+import com.agrosoft.agrosoft.model.VentasDetalleDTO;
 import com.agrosoft.agrosoft.repository.InventarioRepository;
+import com.agrosoft.agrosoft.repository.VentasDetalleRepository;
 import com.agrosoft.agrosoft.service.InventarioServicio;
 
 @Service
@@ -17,6 +20,9 @@ public class InventarioServicioImpl implements InventarioServicio {
 
     @Autowired
     InventarioRepository inventarioRepository;
+
+    @Autowired
+    VentasDetalleRepository ventasDetalleRepository;
 
     @Override
     public List<InventarioDTO> listInventario() {
@@ -37,6 +43,39 @@ public class InventarioServicioImpl implements InventarioServicio {
         });
 
         return inventario;
+    }
+
+    @Override
+    public List<InventarioDTO> listInventarioDisponible() {
+        List<InventarioDTO> inventario = new ArrayList<>();
+
+        inventarioRepository.listInventarioDisponible().forEach((InventarioEntities inventarioEntities) -> {
+            InventarioDTO inventarios = new InventarioDTO(inventarioEntities.getId(), inventarioEntities.getCodigo(),
+                    inventarioEntities.getNombre(), inventarioEntities.getFkCategoria(),
+                    inventarioEntities.getFkProveedor(), inventarioEntities.getFechaInicialVen(),
+                    inventarioEntities.getFechaFinalVen(), inventarioEntities.getCostoProveedor(),
+                    inventarioEntities.getCantidadProveedor(), inventarioEntities.getValorVenta(),
+                    inventarioEntities.getDescripcion(), inventarioEntities.getEstado(), inventarioEntities.getFoto(),
+                    inventarioEntities.getCodigoQR(), inventarioEntities.getCreatedAt(),
+                    inventarioEntities.getUpdatedAt());
+
+            inventario.add(inventarios);
+        });
+
+        return inventario;
+    }
+
+    @Override
+    public List<VentasDetalleDTO> listVentasByProducto(Long producto) {
+        List<VentasDetalleDTO> ventas = new ArrayList<>();
+
+        ventasDetalleRepository.findAll().forEach((VentasDetalleEntities ventasDetallesEntities) -> {
+            ventas.add(new VentasDetalleDTO(ventasDetallesEntities.getId(), ventasDetallesEntities.getCodigo(),
+                    ventasDetallesEntities.getFkProducto(), ventasDetallesEntities.getFkVenta(),
+                    ventasDetallesEntities.getCantidad(), ventasDetallesEntities.getCreatedAt(),
+                    ventasDetallesEntities.getUpdatedAt()));
+        });
+        return ventas;
     }
 
     @Override
@@ -66,7 +105,8 @@ public class InventarioServicioImpl implements InventarioServicio {
 
     @Override
     public void createdInventario(InventarioDTO inventario) {
-        InventarioEntities inventarios = new InventarioEntities(null, inventario.getNombre().substring(0, 3).toUpperCase(),
+        InventarioEntities inventarios = new InventarioEntities(null,
+                inventario.getNombre().substring(0, 3).toUpperCase(),
                 inventario.getNombre(), inventario.getFkCategoria(), inventario.getFkProveedor(),
                 inventario.getFechaInicialVen(), inventario.getFechaFinalVen(), inventario.getCostoProveedor(),
                 inventario.getCantidadProveedor(), inventario.getValorVenta(),
@@ -101,5 +141,4 @@ public class InventarioServicioImpl implements InventarioServicio {
                 inventarioUpdateDTO.getCantidadProveedor(), inventarioUpdateDTO.getValorVenta(),
                 inventarioUpdateDTO.getId());
     }
-
 }

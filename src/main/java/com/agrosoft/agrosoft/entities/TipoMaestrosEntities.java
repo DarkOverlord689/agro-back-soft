@@ -1,6 +1,6 @@
 package com.agrosoft.agrosoft.entities;
 
-import java.sql.Timestamp;
+import com.agrosoft.agrosoft.model.TiposMaestrosDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,8 +18,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "categoria")
-public class CategoriaEntities {
+@Table(name = "tipo_maestros")
+public class TipoMaestrosEntities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,12 +30,21 @@ public class CategoriaEntities {
 
     private Boolean estado;
 
-    @Column(name = "fk_categoria_maestra")
-    private Long fkCategoriaMaestra;
-
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private String updatedAt;
+
+
+    public TiposMaestrosDTO toDTO() {
+        return new TiposMaestrosDTO(
+                this.getId(),
+                this.getCodigo(),
+                this.getNombre(),
+                this.getEstado(),
+                this.getCreatedAt(),
+                this.getUpdatedAt()
+        );
+    }
 }

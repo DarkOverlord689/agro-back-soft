@@ -29,5 +29,10 @@ public class BancoServicioImpl implements BancoServicio {
 
         return bancos;
     }
+
+    @Override
+    public void changeStatusBancos(Long id, Long estado) {
+        bancoRepository.changeStatusBancos(id, estado);
+    }
     
 }

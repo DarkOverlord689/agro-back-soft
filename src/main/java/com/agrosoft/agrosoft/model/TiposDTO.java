@@ -9,7 +9,7 @@ public class TiposDTO {
     private Long id;
     private String codigo;
     private String nombre;
-    private Long estado;
+    private Boolean estado;
     private Long fkTipoMaestros;
     private Timestamp createdAt;
     private Timestamp updatedAt;
